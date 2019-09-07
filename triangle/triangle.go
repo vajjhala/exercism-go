@@ -1,7 +1,10 @@
 // Package triangle determins the kind of triangle
 package triangle
 
-import "sort"
+import (
+	"math"
+	"sort"
+)
 
 //Kind is an alias for a string
 type Kind string
@@ -17,36 +20,18 @@ const (
 	Sca = "sca"
 )
 
-func isTriangle(tri []float64) bool {
-	if len(tri) != 3 {
-		return false
-	}
-	if tri[0] <= 0 || tri[1] <= 0 || tri[2] <= 0 {
-		return false
-	}
-	sumOfsides := tri[0] + tri[1] + tri[2]
-	if sumOfsides <= 0 {
-		return false
-	}
-	for i := 0; i < 3; i++ {
-		if tri[i] > tri[i-1]+tri[i-2] {
-			return false
-		}
-	}
-	return true
-}
-
 // KindFromSides takes the lengths of the three sides of a triangle and returns the Kind of triangle
 func KindFromSides(a, b, c float64) Kind {
 	var sides = []float64{a, b, c}
-	if isTriangle(sides) != true {
+	sort.Float64s(sides)
+	//conditions to check if it's legal triangle
+	if (sides[2] > 0 && sides[2] < math.Inf(1) && sides[0] > 0 && (sides[0]+sides[1]) >= sides[2]) == false {
 		return NaT
 	}
-	sort.Float64s(sides)
-	if sides[1] == sides[2] {
-		if sides[0] == sides[1] {
-			return Equ
-		}
+	if sides[0] == sides[1] && sides[1] == sides[2] {
+		return Equ
+	}
+	if sides[0] == sides[1] || sides[1] == sides[2] {
 		return Iso
 	}
 	return Sca
