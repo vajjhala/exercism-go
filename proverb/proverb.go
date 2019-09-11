@@ -1,15 +1,21 @@
-// This is a "stub" file.  It's a little start on your solution.
-// It's not a complete solution though; you have to write some code.
-
-// Package proverb should have a package comment that summarizes what it's about.
-// https://golang.org/doc/effective_go.html#commentary
+//Package proverb generates amazing proverbs.
 package proverb
 
-// Proverb should have a comment documenting it.
+import "fmt"
+
+// Proverb constructs a meaningful proverb.
 func Proverb(rhyme []string) []string {
-	// Write some code here to pass the test suite.
-	// Then remove all the stock comments.
-	// They're here to help you get started but they only clutter a finished solution.
-	// If you leave them in, reviewers may protest!
-	return []string{}
+	x := len(rhyme)
+	if x < 1 {
+		return []string{}
+	}
+	if x == 1 {
+		v := fmt.Printf("And all for the want of a %s", rhyme[0])
+		return []string{v}
+	}
+	proverb = make([]string, len(rhyme), len(rhyme))
+	for i := 0; i < len(rhyme); i++ {
+
+	}
+
 }
