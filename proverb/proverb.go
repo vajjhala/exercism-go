@@ -9,13 +9,14 @@ func Proverb(rhyme []string) []string {
 	if x < 1 {
 		return []string{}
 	}
+	lastLine := fmt.Sprintf("And all for the want of a %s.", rhyme[0])
 	if x == 1 {
-		v := fmt.Printf("And all for the want of a %s", rhyme[0])
-		return []string{v}
+		return []string{lastLine}
 	}
-	proverb = make([]string, len(rhyme), len(rhyme))
-	for i := 0; i < len(rhyme); i++ {
-
+	proverb := []string{}
+	for i := 0; i < len(rhyme)-1; i++ {
+		proverb = append(proverb, fmt.Sprintf("For want of a %s the %s was lost.", rhyme[i], rhyme[i+1]))
 	}
-
+	proverb = append(proverb, lastLine)
+	return proverb
 }
