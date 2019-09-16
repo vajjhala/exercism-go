@@ -13,8 +13,7 @@ func Proverb(rhyme []string) []string {
 	if x == 1 {
 		return []string{lastLine}
 	}
-	proverb := []string{}
-	for i := 0; i < len(rhyme)-1; i++ {
+b	for i := 0; i < len(rhyme)-1; i++ {
 		proverb = append(proverb, fmt.Sprintf("For want of a %s the %s was lost.", rhyme[i], rhyme[i+1]))
 	}
 	proverb = append(proverb, lastLine)
