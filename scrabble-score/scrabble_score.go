@@ -5,39 +5,37 @@ import "strings"
 
 const alphabets = "abcdefghijklmnopqrstuvwxyz"
 
-func mapper() map[string]int {
-	var values = make(map[string]int, 26)
-	for _, value := range alphabets {
-		letter := string(value)
+var values = make(map[rune]int, 26)
+
+func init() {
+	for _, runeValue := range alphabets {
+		letter := string(runeValue)
 		switch letter {
 		case "a", "e", "i", "o", "u", "l", "n", "r", "s", "t":
-			values[letter] = 1
+			values[runeValue] = 1
 		case "d", "g":
-			values[letter] = 2
+			values[runeValue] = 2
 		case "b", "c", "m", "p":
-			values[letter] = 3
+			values[runeValue] = 3
 		case "f", "h", "v", "w", "y":
-			values[letter] = 4
+			values[runeValue] = 4
 		case "k":
-			values[letter] = 5
+			values[runeValue] = 5
 		case "j", "x":
-			values[letter] = 8
+			values[runeValue] = 8
 		case "q", "z":
-			values[letter] = 10
+			values[runeValue] = 10
 		default:
-			values[letter] = 0
+			values[runeValue] = 0
 		}
 	}
-	return values
 }
 
 //Score returns the scrabble score of the word
 func Score(word string) int {
-	word = strings.ToLower(word)
-	values := mapper()
 	score := 0
-	for i := 0; i < len(word); i++ {
-		s, ok := values[string(word[i])]
+	for _, runeValue := range strings.ToLower(word) {
+		s, ok := values[runeValue]
 		if ok != true {
 			return 0
 		}
