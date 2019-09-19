@@ -3,32 +3,33 @@ package scrabble
 
 import "strings"
 
-const alphabets = "abcdefghijklmnopqrstuvwxyz"
-
-var values = make(map[rune]int, 26)
-
-func init() {
-	for _, runeValue := range alphabets {
-		letter := string(runeValue)
-		switch letter {
-		case "a", "e", "i", "o", "u", "l", "n", "r", "s", "t":
-			values[runeValue] = 1
-		case "d", "g":
-			values[runeValue] = 2
-		case "b", "c", "m", "p":
-			values[runeValue] = 3
-		case "f", "h", "v", "w", "y":
-			values[runeValue] = 4
-		case "k":
-			values[runeValue] = 5
-		case "j", "x":
-			values[runeValue] = 8
-		case "q", "z":
-			values[runeValue] = 10
-		default:
-			values[runeValue] = 0
-		}
-	}
+var values = map[rune]int{
+	'a': 1,
+	'b': 3,
+	'c': 3,
+	'd': 2,
+	'e': 1,
+	'f': 4,
+	'g': 2,
+	'h': 4,
+	'i': 1,
+	'j': 8,
+	'k': 5,
+	'l': 1,
+	'm': 3,
+	'n': 1,
+	'o': 1,
+	'p': 3,
+	'q': 10,
+	'r': 1,
+	's': 1,
+	't': 1,
+	'u': 1,
+	'v': 4,
+	'w': 4,
+	'x': 8,
+	'y': 4,
+	'z': 10,
 }
 
 //Score returns the scrabble score of the word
