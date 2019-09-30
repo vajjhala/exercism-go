@@ -9,8 +9,9 @@ func IsIsogram(s string) bool {
 	if s == "" {
 		return true
 	}
+	s = strings.ToLower(s)
 	cnt := make(map[rune]int)
-	for _, rV := range strings.ToLower(s) {
+	for _, rV := range s {
 		if cnt[rV] != 0 {
 			return false
 		}
