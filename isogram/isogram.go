@@ -9,15 +9,15 @@ func IsIsogram(s string) bool {
 	if s == "" {
 		return true
 	}
-	s = strings.ToLower(s)
-	cnt := make(map[rune]int)
-	for _, rV := range s {
-		if cnt[rV] != 0 {
+	cnt := make(map[rune]bool)
+	for _, rV := range strings.ToLower(s) {
+		if cnt[rV] == true {
 			return false
 		}
-		if (rV != '-') && (rV != ' ') {
-			cnt[rV] = 1
+		if (rV == '-') || (rV == ' ') {
+			continue
 		}
+		cnt[rV] = true
 	}
 	return true
 }
