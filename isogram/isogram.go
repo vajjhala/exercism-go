@@ -6,15 +6,12 @@ import (
 
 //IsIsogram takes (any string) and returns (Isogram or not)
 func IsIsogram(s string) bool {
-	if s == "" {
-		return true
-	}
 	cnt := make(map[rune]bool)
 	for _, rV := range strings.ToLower(s) {
-		if cnt[rV] == true {
+		if cnt[rV] {
 			return false
 		}
-		if (rV == '-') || (rV == ' ') {
+		if rV == '-' || rV == ' ' {
 			continue
 		}
 		cnt[rV] = true
