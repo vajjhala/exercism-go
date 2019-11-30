@@ -36,11 +36,7 @@ var values = map[rune]int{
 func Score(word string) int {
 	score := 0
 	for _, runeValue := range strings.ToLower(word) {
-		s, ok := values[runeValue]
-		if ok != true {
-			return 0
-		}
-		score = score + s
+		score += values[runeValue]
 	}
 	return score
 }
