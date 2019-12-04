@@ -3,28 +3,23 @@ package luhn
 
 import (
 	//"fmt"
-	"regexp"
-	"strconv"
+	//"regexp"
+	//"strconv"
 	"strings"
 )
 
 //Valid returns if a string is a valid Luhn string
 func Valid(s string) bool {
-	//step 0: check if valid Luhn string
-	pattern := `^\d{1}(\d|\s)+$`
-	mtch, _ := regexp.MatchString(pattern, s)
-	if !mtch {
-		return false
-	}
 	//re := regexp.MustCompile(pattern)
-	s = strings.Replace(s, " ", "", -1)
+	//fmt.Printf("\n***** string = %s *****", s)
+	s = strings.ReplaceAll(s, " ", "")
 	//step 1: compute sum
 	runes := []rune(s)
 	slen, sum := len(runes), 0
 	//fmt.Printf("\nrunes: %s, len: %d\n", s, slen)
 	for i := 1; i <= slen; i++ {
-		digit, err := strconv.ParseInt(string(runes[slen-i]), 10, 8)
-		if err != nil {
+		digit := int(runes[slen-i] - '0')
+		if digit < 0 || digit > 9 {
 			return false
 		}
 		if i%2 == 0 {
@@ -33,10 +28,13 @@ func Valid(s string) bool {
 		if digit > 9 {
 			digit = digit - 9
 		}
-
-		sum = sum + int(digit)
+		//fmt.Printf(", sum = %d; ", sum)
+		sum = sum + digit
 	}
 
 	//step 2: return remainder of sum
+	if (sum == 0) && (slen <= 1) {
+		return false
+	}
 	return (sum%10 == 0)
 }
