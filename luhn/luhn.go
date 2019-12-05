@@ -16,25 +16,24 @@ func Valid(s string) bool {
 	//step 1: compute sum
 	runes := []rune(s)
 	slen, sum := len(runes), 0
+	double := false
 	//fmt.Printf("\nrunes: %s, len: %d\n", s, slen)
 	for i := 1; i <= slen; i++ {
 		digit := int(runes[slen-i] - '0')
 		if digit < 0 || digit > 9 {
 			return false
 		}
-		if i%2 == 0 {
+		if double {
 			digit = (digit * 2)
 		}
 		if digit > 9 {
 			digit = digit - 9
 		}
 		//fmt.Printf(", sum = %d; ", sum)
-		sum = sum + digit
+		sum += digit
+		double = !double
 	}
 
 	//step 2: return remainder of sum
-	if (sum == 0) && (slen <= 1) {
-		return false
-	}
-	return (sum%10 == 0)
+	return (slen > 1) && sum%10 == 0
 }
