@@ -11,10 +11,7 @@ func Valid(s string) bool {
 	//step 1: compute sum
 	runes := []rune(s)
 	slen, sum := len(runes), 0
-	double := false
-	if slen%2 == 0 {
-		double = true
-	}
+	double := (len(s)%2 == 0)
 	for _, rV := range runes {
 		digit := int(rV - '0')
 		if digit < 0 || digit > 9 {
