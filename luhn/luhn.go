@@ -2,41 +2,32 @@
 package luhn
 
 import (
-	//"fmt"
-	"regexp"
-	"strconv"
 	"strings"
 )
 
+var sum int
+
 //Valid returns if a string is a valid Luhn string
 func Valid(s string) bool {
-	//step 0: check if valid Luhn string
-	pattern := `^\d{1}(\d|\s)+$`
-	mtch, _ := regexp.MatchString(pattern, s)
-	if !mtch {
-		return false
-	}
-	//re := regexp.MustCompile(pattern)
-	s = strings.Replace(s, " ", "", -1)
+	s = strings.ReplaceAll(s, " ", "")
 	//step 1: compute sum
-	runes := []rune(s)
-	slen, sum := len(runes), 0
-	//fmt.Printf("\nrunes: %s, len: %d\n", s, slen)
-	for i := 1; i <= slen; i++ {
-		digit, err := strconv.ParseInt(string(runes[slen-i]), 10, 8)
-		if err != nil {
+	double := len(s)%2 == 0
+	sum = 0
+	for _, rV := range s {
+		digit := int(rV - '0')
+		if digit < 0 || digit > 9 {
 			return false
 		}
-		if i%2 == 0 {
-			digit = (digit * 2)
+		if double {
+			digit *= 2
+			if digit > 9 {
+				digit -= 9
+			}
 		}
-		if digit > 9 {
-			digit = digit - 9
-		}
-
-		sum = sum + int(digit)
+		sum += digit
+		double = !double
 	}
 
 	//step 2: return remainder of sum
-	return (sum%10 == 0)
+	return len(s) > 1 && sum%10 == 0
 }
