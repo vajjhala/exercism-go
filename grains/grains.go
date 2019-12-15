@@ -5,14 +5,13 @@ import (
 	"errors"
 )
 
-var grains uint64
-
 //Square returns the number of grains on the square
 func Square(n int) (uint64, error) {
 	if !(n > 0 && n <= 64) {
 		return 0, errors.New("number out of chessboard range.")
 	}
 	// start with 1grain
+	var grains uint64
 	grains = 1
 	for i := 1; i < n; i++ {
 		grains *= 2
