@@ -7,6 +7,8 @@ import (
 
 var grains uint64
 
+const total = (1 << 64) - 1
+
 //Square returns the number of grains on the square
 func Square(n int) (uint64, error) {
 	if n < 1 || n > 64 {
@@ -19,5 +21,5 @@ func Square(n int) (uint64, error) {
 
 //Total returns the maximum number of grains on a chessboard
 func Total() uint64 {
-	return 18446744073709551615
+	return total
 }
