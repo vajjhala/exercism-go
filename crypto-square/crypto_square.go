@@ -7,8 +7,9 @@ import (
 	"unicode"
 )
 
-var sq = func(text *string) (c, r, l int) {
-	l = len(*text)
+//sq to calculate the row and column dimensions
+func sq(text string) (c, r, l int) {
+	l = len(text)
 	c = int(math.Ceil(math.Sqrt(float64(l))))
 	r = c - 1
 	if (c * r) >= l {
@@ -17,7 +18,8 @@ var sq = func(text *string) (c, r, l int) {
 	return c, c, l
 }
 
-var normalize = func(r rune) rune {
+//normalizer to check if rune is alphanumeric
+func normalize(r rune) rune {
 	if !unicode.In(r, unicode.Letter, unicode.Number) {
 		return -1
 	}
@@ -27,7 +29,7 @@ var normalize = func(r rune) rune {
 //Encode ...
 func Encode(message string) string {
 	message = strings.Map(normalize, message)
-	clm, row, l := sq(&message)
+	clm, row, l := sq(message)
 	square := make([]string, clm)
 	//add padding
 	for n := clm*row - l; n > 0; n-- {
