@@ -1,65 +1,43 @@
-//Package clock ..
+//Package clock to add, subtract and display time
 package clock
 
 import (
-	// "fmt"
-	"strconv"
+	"fmt"
 )
 
-//Clock ...
+//Clock abstracts time as a 24hr display clock
 type Clock struct {
-	hour, minute int
+	minute int
 }
 
-//clock ..
+//clock converts an any integer to a clock value
 func (c Clock) clock() Clock {
-	x, y, z := c.hour%24, c.minute/60, c.minute%60
-	if c.hour < 0 {
-		x = 24 + x
-	}
+	// clock value range: [0,1439]
+	// 1440 are the number of minutes in a day
+	c.minute %= 1440
 	if c.minute < 0 {
-		if z != 0 {
-			y = y - 1
-			z = 60 + z
-		}
-
+		c.minute += 1440
 	}
-
-	c.hour = (x + y) % 24
-	if c.hour < 0 {
-		c.hour = 24 + c.hour
-	}
-	c.minute = z
 	return c
 }
 
-//New ...
+//New takes in hours and minutes to create a clock value
 func New(hour, minute int) Clock {
-	c := Clock{hour, minute}
-	return c.clock()
+	return Clock{minute + hour*60}.clock()
 }
 
-//String ...
+//String formats the display for a clock value
 func (c Clock) String() string {
-	hours := strconv.Itoa(c.hour)     //hour as a string
-	minutes := strconv.Itoa(c.minute) //minute as a string
-	if len(hours) != 2 {
-		hours = "0" + hours
-	}
-	if len(minutes) != 2 {
-		minutes = "0" + minutes
-
-	}
-	return hours + ":" + minutes
+	return fmt.Sprintf("%02d:%02d", c.minute/60, c.minute%60)
 }
 
-//Add ...
+//Add to add minutes to a clock value
 func (c Clock) Add(minutes int) Clock {
 	c.minute += minutes
 	return c.clock()
 }
 
-//Subtract ...
+//Subtract minutes from a clock value
 func (c Clock) Subtract(minutes int) Clock {
 	c.minute -= minutes
 	return c.clock()
